@@ -1,0 +1,18 @@
+#control the physics
+#/control/execute physics.mac
+/physic/addPhysics HADRONTHERAPY_1
+#/tracking/verbose 1
+/run/numberOfThreads 32
+/run/initialize
+#/changeTarget/Material G4_PLEXIGLASS
+#/changeTarget/Size 1 0.08 1 mm
+
+/gps/particle proton
+/gps/position -0.5 0 0 cm
+/gps/direction 1  0 0
+/gps/ene/mono 4.5 MeV 
+
+#/random/setSeeds 1 1
+#/run/setCut 1 um
+/run/printProgress 2000000000
+/run/beamOn 2000
