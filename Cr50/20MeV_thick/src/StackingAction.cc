@@ -54,7 +54,8 @@ StackingAction::~StackingAction()
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-G4ClassificationOfNewTrack StackingAction::ClassifyNewTrack(const G4Track* track)
+G4ClassificationOfNewTrack 
+StackingAction::ClassifyNewTrack(const G4Track* track)
 {
 
 /*		G4ThreeVector vertex_pos = track -> GetPosition();
@@ -73,7 +74,7 @@ G4ClassificationOfNewTrack StackingAction::ClassifyNewTrack(const G4Track* track
     	G4double vertex_energy = track -> GetKineticEnergy();
     	G4ThreeVector vertex_pos = track ->GetPosition();
     	G4ThreeVector vertex_direction = track -> GetMomentumDirection();
-    	//analysis -> FillVertex(gammaEkin[i], FinalA, FinalZ, protonStep, protonE, protonStep, Edep);
+    	//analysis -> FillVertex(gammaEkin[i], FinalA, FinalZ, protonStep, protonE, Edep);
 	//}
         
 	

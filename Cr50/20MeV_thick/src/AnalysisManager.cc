@@ -69,7 +69,7 @@ void AnalysisManager::CreateNtuples()
 
   manager -> CreateNtuple("ProtonEkin", "ProtonEkin");
   manager -> CreateNtupleDColumn("Ekin");
-  manager -> CreateNtupleDColumn("PosZ");
+  manager -> CreateNtupleDColumn("PositionZ");
   manager -> FinishNtuple();
 
 
@@ -97,7 +97,7 @@ void AnalysisManager::OpenFile()
   
 }
 
-void AnalysisManager::FillVertex(G4double Ekin, G4int FinalA, G4int FinalZ, G4double Step, G4double EkinProton, G4double protonStep, G4double Edep)
+void AnalysisManager::FillVertex(G4double Ekin, G4int FinalA, G4int FinalZ, G4double Step, G4double EkinProton, G4double Edep)
 {
   G4AnalysisManager* manager = G4AnalysisManager::Instance();
   manager -> FillNtupleDColumn(0, 0, Ekin);
@@ -105,7 +105,6 @@ void AnalysisManager::FillVertex(G4double Ekin, G4int FinalA, G4int FinalZ, G4do
   manager -> FillNtupleDColumn(0, 2, FinalZ);
   manager -> FillNtupleDColumn(0, 3, Step);
   manager -> FillNtupleDColumn(0, 4, EkinProton);
-  manager -> FillNtupleDColumn(0, 5, protonStep);
   manager -> FillNtupleDColumn(0, 6, Edep);
   manager -> AddNtupleRow(0);
 }

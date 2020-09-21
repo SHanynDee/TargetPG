@@ -53,19 +53,24 @@ SteppingAction::~SteppingAction()
 
 void SteppingAction::UserSteppingAction(const G4Step* step)
 {
+
   G4ThreeVector pos = step  -> GetPostStepPoint() -> GetPosition();
   const G4StepPoint* endPoint = step->GetPostStepPoint();
   G4StepPoint* prestep = step->GetPreStepPoint();
-  G4VProcess* process   = 
-                   const_cast<G4VProcess*>(endPoint->GetProcessDefinedStep());
+  G4VProcess* process   = const_cast<G4VProcess*>(endPoint->GetProcessDefinedStep());
+
+
   if(endPoint->GetProcessDefinedStep() -> GetProcessName() == "protonInelastic")
   {
+
     //primary proton inelastic interaction
     G4ParticleDefinition* particle = step->GetTrack()->GetDefinition(); 
     G4String partName = particle->GetParticleName(); //name of particle undergoing protonInelastic (i.e. proton)
     
+
     G4String nuclearChannel = partName; //string with the full reaction
     
+
     G4HadronicProcess* hproc = dynamic_cast<G4HadronicProcess*>(process);
     const G4Isotope* target = NULL;
     if (hproc) target = hproc->GetTargetIsotope();
@@ -108,11 +113,11 @@ G4String CurrentParticle = step -> GetTrack() -> GetParticleDefinition() -> GetP
     for(int i = 0; i<gammaEkin.size(); i++)
       analysis -> FillVertex(gammaEkin[i], FinalA, FinalZ, protonStep, protonE, protonStep, Edep);
 
-    if(CurrentParticle == "proton" && pos.getX()/mm >= 100. && pos.getX()/mm <= 150.)
-      {
-       G4double Ekin = step -> GetPostStepPoint() -> GetKineticEnergy();
-       analysis -> FillProton(Ekin/MeV, pos.getX()/mm);
-      }
+   if(CurrentParticle == "proton" && pos.getX()/mm >= 0. && pos.getX()/mm <= 300.)
+   {
+     G4double Ekin = step -> GetPostStepPoint() -> GetKineticEnergy();
+     analysis -> FillProton(Ekin/MeV, pos.getX()/mm);
+   }
 
     //G4cout << G4endl; //<< countGamma<<G4endl;
     //G4cout <<nuclearChannel << G4endl;
