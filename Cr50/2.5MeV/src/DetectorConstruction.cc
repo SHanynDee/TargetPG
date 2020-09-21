@@ -181,7 +181,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     G4Material* Chromium = G4NistManager::Instance()->FindOrBuildMaterial("G4_Cr", isotopes);
     //TargetMat = P31;
 
-   TargetMat = Chromium;
+   TargetMat = Cr50;
     
     sTarget = new G4Box("sTarget",
                                      TargetSize.getX()/2.,

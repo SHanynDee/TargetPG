@@ -51,7 +51,7 @@ RunAction::~RunAction()
 
 void RunAction::BeginOfRunAction(const G4Run* /*aRun*/)
 {
-	analysisMan -> CreateNtuples();
+	analysisMan -> OpenFile();
 	
 	fTxtOutput.open("outfile.txt");
 	fTxtOutput <<"Event" 
@@ -79,3 +79,4 @@ void RunAction::EndOfRunAction(const G4Run* /*aRun*/)
 {
    analysisMan -> finish(); 
 }
+
