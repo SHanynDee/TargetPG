@@ -1,19 +1,8 @@
 {
 
-TFile f("radioprotection.root");
+TFile f("2.5MeVBP.root");
 TDirectory *dir= (TDirectory *) f.Get("GammaVertex"); 
-
-//TLeaf *Leaf1 = (TTree *) GammaVertex->GetLeaf("Ekin")
-//TTree *Leaf2 = (TTree *) GammaVertex->GetLeaf("FinalA")
-//TTree *Leaf3 = (TTree *) GammaVertex->GetLeaf("FinalZ")
-//TTree *Leaf4 = (TTree *) GammaVertex->GetLeaf("EkinProton")
-
-
-
-//TNtuple *ntuple1 = (TNtuple *) dir->Get("Ekin");
-//TNtuple *ntuple2 = (TNtuple *) dir->Get("FinalA");
-//TNtuple *ntuple3 = (TNtuple *) dir->Get("FinalZ");
-//TNtuple *ntuple4 = (TNtuple *) dir->Get("EkinProton"); 
+TDirectory *dir1= (TDirectory *) f.Get("ProtonEkin"); 
 
 int numberOfBinsX = 1000;
 int numberOfBinsY = 1000;
@@ -33,7 +22,7 @@ TH1F *edep1Distribution = new TH1F("h0", "Primary Particle Energy Spectrum; Ener
 TH1F *edep11Distribution = new TH1F("h1", "Energy deposition; Edep (kev);Frequency", numberOfBinsX, Xmin, Xmax);       //Edep // binning, xmin, xmax, along x direction
 
 
-TH2F* edep2DDistribution = new TH2F("h2", "Energy deposited by Ions; Z; Edep (keV)", numberOfBinsX, Xmin, Xmax,numberOfBinsY, Ymin, Ymax);   
+TH2F* edep2DDistribution = new TH2F("h2", "Energy of Proton; Position Z; Edep (keV)", numberOfBinsX, Xmin, Xmax,numberOfBinsY, Ymin, Ymax);   
 	 // Z     // binning, xmin, xmax, along x direction
  	//Edep   // binning, xmin, xmax, along y direction
 
@@ -47,9 +36,10 @@ TH3F *edep3DDistribution = new TH3F("h3", "3Dedep; Edep (keV) ; A; Z", numberOfB
 //Plot Primary Energy of Incident Particle
 //GammaVertex->Draw("Ekin>>h0","","");
 //Plot Energy Deposition within SV
-GammaVertex->Draw("EkinProton>>h1", "", "");
+//GammaVertex->Draw("EkinProton>>h1", "", "");
 //Plot 2D/3D Histogram of energy with particle type using A and Z
-GammaVertex->Draw("FinalZ:EkinProton>>h2", "", "");
+//GammaVertex->Draw("Step:EkinProton>>h2", "", "");
+ProtonEkin->Draw("PositionZ:Ekin>>h2", "", "");
 //GammaVertex->Draw("FinalZ:FinalA:EkinProton>>h3", "", "");
 
 }			
