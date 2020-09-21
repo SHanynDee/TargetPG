@@ -55,7 +55,7 @@ public:
   //void FillExitAbsorber(G4double Ekin, G4double PositionX, G4double PositionY, G4double PositionZ, G4double DirectionX, G4double DirectionY, G4double DirectionZ, G4double AngleCrossBeam, G4double AngleAlongBeam);
 
 
-  void FillVertex(G4double Ekin, G4int FinalA, G4int FinalZ, G4double Step, G4double EkinProton, G4double protonStep, G4double Edep);
+  void FillVertex(G4double Ekin, G4int FinalA, G4int FinalZ, G4double Step, G4double EkinProton, G4double Edep);
 
   void FillProton(G4double Ekin, G4double PositionZ);
 
