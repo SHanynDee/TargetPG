@@ -58,36 +58,23 @@ G4ClassificationOfNewTrack
 StackingAction::ClassifyNewTrack(const G4Track* track)
 {
 
-/*		G4ThreeVector vertex_pos = track -> GetPosition();
-		if(vertex_pos.getX() >= 0 && vertex_pos.getX() < 300)
-		{
-			G4ThreeVector vertex_direction = track -> GetMomentumDirection();
-			G4double vertex_energy = track -> GetKineticEnergy();
-			analysis -> FillVertex(gammaEkin[i], FinalA, FinalZ, protonStep, protonE, protonStep, Edep);
-		}
-*/
-	
 
-  //  if (track->GetDynamicParticle() ->GetPDGcode() == 22) {
-		//G4cout <<track->GetDynamicParticle() ->GetPDGcode() <<"\t" << track->GetParticleDefinition()->GetAtomicNumber() <<"\t" << track->GetParticleDefinition()->GetAtomicMass()<<"\t" <<track -> GetKineticEnergy()/MeV <<"\t" <<track -> GetCreatorProcess() -> GetProcessName()<<"\t"<< track ->GetParentID() << G4endl;
-		//G4cout << "Ciao" << G4endl;
+
+        
+
+    if (track->GetDynamicParticle() ->GetPDGcode() == 22) {
+		G4cout <<track->GetDynamicParticle() ->GetPDGcode() <<"\t" << track->GetParticleDefinition()->GetAtomicNumber() <<"\t" << track->GetParticleDefinition()->GetAtomicMass()<<"\t" <<track -> GetKineticEnergy()/MeV <<"\t" <<track -> GetCreatorProcess() -> GetProcessName()<<"\t"<< track ->GetParentID() << G4endl;
+		G4cout << "Ciao" << G4endl;
     	G4double vertex_energy = track -> GetKineticEnergy();
     	G4ThreeVector vertex_pos = track ->GetPosition();
     	G4ThreeVector vertex_direction = track -> GetMomentumDirection();
-    	//analysis -> FillVertex(gammaEkin[i], FinalA, FinalZ, protonStep, protonE, Edep);
-	//}
+	}
         
-	
-    
-    //fEventAction->ResetPassCounter(); //collamaf: at each new track we reset the pass counter
-    
+
 	
 	
 	return fUrgent;
 }
-//kill secondary neutrino
-//  if (track->GetDefinition() == G4NeutrinoE::NeutrinoE()) return fKill;
-//  else return fUrgent;
 
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

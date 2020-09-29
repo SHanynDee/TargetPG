@@ -97,7 +97,7 @@ G4String CurrentParticle = step -> GetTrack() -> GetParticleDefinition() -> GetP
       G4String name   = particle->GetParticleName();
       G4String type   = particle->GetParticleType();      
       G4double energy = (*secondary)[lp]->GetKineticEnergy()/MeV;
-      
+
       if(name == "gamma") gammaEkin.push_back(energy);
       if(type == "nucleus")
       {
@@ -105,19 +105,13 @@ G4String CurrentParticle = step -> GetTrack() -> GetParticleDefinition() -> GetP
         FinalZ = particle->GetAtomicNumber();
       }
 
+
       //G4cout << name<<"*" << energy <<" + ";
       nuclearChannel += " + " + name;
     }
 
-        //fill the root file
-    for(int i = 0; i<gammaEkin.size(); i++)
-      analysis -> FillVertex(gammaEkin[i], FinalA, FinalZ, protonStep, protonE, protonStep, Edep);
-
-   if(CurrentParticle == "proton" && pos.getX()/mm >= 0. && pos.getX()/mm <= 300.)
-   {
-     G4double Ekin = step -> GetPostStepPoint() -> GetKineticEnergy();
-     analysis -> FillProton(Ekin/MeV, pos.getX()/mm);
-   }
+for(int i = 0; i<gammaEkin.size(); i++)
+ analysis -> FillVertex(gammaEkin[i], FinalA, FinalZ, protonStep, protonE, Edep, pos.getX()/mm, pos.getY()/mm, pos.getZ()/mm);
 
     //G4cout << G4endl; //<< countGamma<<G4endl;
     //G4cout <<nuclearChannel << G4endl;
