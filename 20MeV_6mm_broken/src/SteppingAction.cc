@@ -42,13 +42,13 @@
 #include "G4SystemOfUnits.hh"
 
 SteppingAction::SteppingAction(AnalysisManager* pAnalysis)
-{ 
+{
 analysis = pAnalysis;
-fSecondary = 0; 
+fSecondary = 0;
 }
 
 SteppingAction::~SteppingAction()
-{ 
+{
 }
 
 void SteppingAction::UserSteppingAction(const G4Step* step)
@@ -59,36 +59,41 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
   G4StepPoint* prestep = step->GetPreStepPoint();
   G4VProcess* process   = const_cast<G4VProcess*>(endPoint->GetProcessDefinedStep());
 
+  G4double Ep = prestep -> GetKineticEnergy();
+  G4double Epdep = step ->GetTotalEnergyDeposit()/MeV;
 
   if(endPoint->GetProcessDefinedStep() -> GetProcessName() == "protonInelastic")
   {
 
     //primary proton inelastic interaction
-    G4ParticleDefinition* particle = step->GetTrack()->GetDefinition(); 
+    G4ParticleDefinition* particle = step->GetTrack()->GetDefinition();
     G4String partName = particle->GetParticleName(); //name of particle undergoing protonInelastic (i.e. proton)
-    
+
 
     G4String nuclearChannel = partName; //string with the full reaction
-    
+
 
     G4HadronicProcess* hproc = dynamic_cast<G4HadronicProcess*>(process);
     const G4Isotope* target = NULL;
     if (hproc) target = hproc->GetTargetIsotope();
-    G4String targetName = "XXXX";  
+    G4String targetName = "XXXX";
     if (target) targetName = target->GetName(); //name of the target
     nuclearChannel += " + " + targetName + " --> ";
 
+    G4ThreeVector position = prestep -> GetPosition();
+    //G4double PositionX = pos.getX()/mm;
+/*
     if(partName == "proton")
     {
      G4double PositionX = pos.getX()/mm;
-    }
-    
+   }
+*/
     G4double protonStep = step ->GetStepLength()/um;
     G4double protonE = prestep->GetKineticEnergy()/MeV;
     G4double Edep = step ->GetTotalEnergyDeposit()/MeV;
 
 
-    const std::vector<const G4Track*>* secondary 
+    const std::vector<const G4Track*>* secondary
                                     = step->GetSecondaryInCurrentStep(); //vector with the secondary particles
 
     G4String CurrentParticle = step -> GetTrack() -> GetParticleDefinition() -> GetParticleName();
@@ -96,11 +101,11 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
     //loop on secondaries
     std::vector<G4double> gammaEkin;
     G4int FinalA = 0, FinalZ = 0;
-    for (size_t lp=0; lp<(*secondary).size(); lp++) 
+    for (size_t lp=0; lp<(*secondary).size(); lp++)
     {
-      particle = (*secondary)[lp]->GetDefinition(); 
+      particle = (*secondary)[lp]->GetDefinition();
       G4String type   = particle->GetParticleType();
-      G4String name   = particle->GetParticleName();      
+      G4String name   = particle->GetParticleName();
       G4double energy = (*secondary)[lp]->GetKineticEnergy()/MeV;
 
       if(name == "gamma") gammaEkin.push_back(energy);
@@ -113,10 +118,14 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
       nuclearChannel += " + " + name;
     }
 
-for(int i = 0; i<gammaEkin.size(); i++)
- analysis -> FillVertex(gammaEkin[i], FinalA, FinalZ, protonStep, protonE, Edep, PositionX);
+
+    for(int i = 0; i<gammaEkin.size(); i++)
+    analysis -> FillVertex(gammaEkin[i], FinalA, FinalZ, protonStep, protonE, Edep, position.getX()/mm, position.getY()/mm, position.getZ()/mm);
 
     //G4cout << G4endl; //<< countGamma<<G4endl;
     //G4cout <<nuclearChannel << G4endl;
-  } 
+  }
+
+  analysis -> FillProton(Ep, Epdep, pos.getX()/mm, pos.getY()/mm, pos.getZ()/mm);
+
 }

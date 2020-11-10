@@ -26,10 +26,10 @@
 // Authors: Susanna Guatelli, susanna@uow.edu.au,
 // Authors: Jeremy Davis, jad028@uowmail.edu.au
 //
- 
+
 
 #ifndef ANALYSISMANAGER_HH
-#define ANALYSISMANAGER_HH 
+#define ANALYSISMANAGER_HH
 
 #include "globals.hh"
 #include "g4root.hh"
@@ -39,27 +39,24 @@
 //const G4int MaxNtCol = 5;
 
 class AnalysisManager
-{ 
+{
 
 public:
    AnalysisManager(G4String fileName);
   ~AnalysisManager();
-  
+
   void CreateNtuples(); // booking the ROOT file
-  
+
   void OpenFile(); //open output file
 
 
-  void FillVertex(G4double Ekin, G4int FinalA, G4int FinalZ, G4double Step, G4double EkinProton, G4double Edep, G4double PositionX);
+  void FillVertex(G4double Ekin, G4int FinalA, G4int FinalZ, G4double Step, G4double EkinProton, G4double Edep, G4double PositionX, G4double PositionY, G4double PositionZ);
+  void FillProton(G4double EkinProton, G4double Edep, G4double PositionX, G4double PositionY, G4double PositionZ);
 
   void finish();
-  // Close the ROOT file with all the results stored in nutples 
+  // Close the ROOT file with all the results stored in nutples
 
   G4String fFileName;
 };
 
 #endif
-
-
-
-

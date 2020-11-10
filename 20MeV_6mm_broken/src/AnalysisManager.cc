@@ -39,19 +39,19 @@ AnalysisManager::AnalysisManager(G4String fileName)
   fFileName = fileName;
 }
 
-AnalysisManager::~AnalysisManager() 
+AnalysisManager::~AnalysisManager()
 {
 }
 
-void AnalysisManager::CreateNtuples() 
-{ 
+void AnalysisManager::CreateNtuples()
+{
   G4AnalysisManager* manager = G4AnalysisManager::Instance();
   G4cout << "Using " << manager->GetType() << G4endl;
-  
+
   manager->SetVerboseLevel(1);
   manager->SetNtupleMerging(true);
-  
-  
+
+
   manager -> CreateNtuple("GammaVertex", "GammaVertex");
   manager -> CreateNtupleDColumn("Ekin");
   manager -> CreateNtupleDColumn("FinalA");
@@ -60,29 +60,37 @@ void AnalysisManager::CreateNtuples()
   manager -> CreateNtupleDColumn("EkinProton");
   manager -> CreateNtupleDColumn("Edep");
   manager -> CreateNtupleDColumn("PositionX");
+  manager -> CreateNtupleDColumn("PositionY");
+  manager -> CreateNtupleDColumn("PositionZ");
   manager -> FinishNtuple();
 
-
+  manager -> CreateNtuple("ProtonInfo", "ProtonInfo");
+  manager -> CreateNtupleDColumn("EkinProton");
+  manager -> CreateNtupleDColumn("Edep");
+  manager -> CreateNtupleDColumn("PositionX");
+  manager -> CreateNtupleDColumn("PositionY");
+  manager -> CreateNtupleDColumn("PositionZ");
+  manager -> FinishNtuple();
 
   //manager->SetFirstNtupleId(1);
-   
+
 }
 
 void AnalysisManager::OpenFile()
 {
 	G4AnalysisManager* manager = G4AnalysisManager::Instance();
-  
+
 
   G4bool fileOpen = manager->OpenFile(fFileName);
   if (!fileOpen) {
-    G4cout << "\n---> HistoManager::book(): cannot open " 
+    G4cout << "\n---> HistoManager::book(): cannot open "
            << fFileName << G4endl;
     return;
   }
-  
+
 }
 
-void AnalysisManager::FillVertex(G4double Ekin, G4int FinalA, G4int FinalZ, G4double Step, G4double EkinProton, G4double Edep, G4double PositionX)
+void AnalysisManager::FillVertex(G4double Ekin, G4int FinalA, G4int FinalZ, G4double Step, G4double EkinProton, G4double Edep, G4double PositionX, G4double PositionY, G4double PositionZ)
 {
   G4AnalysisManager* manager = G4AnalysisManager::Instance();
   manager -> FillNtupleDColumn(0, 0, Ekin);
@@ -92,26 +100,25 @@ void AnalysisManager::FillVertex(G4double Ekin, G4int FinalA, G4int FinalZ, G4do
   manager -> FillNtupleDColumn(0, 4, EkinProton);
   manager -> FillNtupleDColumn(0, 5, Edep);
   manager -> FillNtupleDColumn(0, 6, PositionX);
+  manager -> FillNtupleDColumn(0, 7, PositionY);
+  manager -> FillNtupleDColumn(0, 8, PositionZ);
   manager -> AddNtupleRow(0);
 }
 
- 
- 
-void AnalysisManager::finish() 
-{   
-    G4AnalysisManager* manager = G4AnalysisManager::Instance();    
+void AnalysisManager::FillProton(G4double EkinProton, G4double Edep, G4double PositionX, G4double PositionY, G4double PositionZ)
+{
+  G4AnalysisManager* manager = G4AnalysisManager::Instance();
+  manager -> FillNtupleDColumn(1, 0, EkinProton);
+  manager -> FillNtupleDColumn(1, 1, Edep);
+  manager -> FillNtupleDColumn(1, 2, PositionX);
+  manager -> FillNtupleDColumn(1, 3, PositionY);
+  manager -> FillNtupleDColumn(1, 4, PositionZ);
+  manager -> AddNtupleRow(1);
+}
+
+void AnalysisManager::finish()
+{
+    G4AnalysisManager* manager = G4AnalysisManager::Instance();
     manager -> Write();
     manager -> CloseFile();
 }
-
-
-
-
-
-
-
-
-
-
-
-
