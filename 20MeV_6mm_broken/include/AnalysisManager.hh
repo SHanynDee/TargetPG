@@ -51,7 +51,8 @@ public:
 
 
   void FillVertex(G4double Ekin, G4int FinalA, G4int FinalZ, G4double Step, G4double EkinProton, G4double Edep, G4double PositionX, G4double PositionY, G4double PositionZ);
-  void FillProton(G4double EkinProton, G4double Edep, G4double PositionX, G4double PositionY, G4double PositionZ);
+//  void FillProton(G4double EkinProton, G4double Edep, G4double PositionX, G4double PositionY, G4double PositionZ);
+  void FillProton(G4double Ekin, G4double PositionX);
 
   void finish();
   // Close the ROOT file with all the results stored in nutples

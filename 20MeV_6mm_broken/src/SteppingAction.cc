@@ -126,6 +126,7 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
     //G4cout <<nuclearChannel << G4endl;
   }
 
-  analysis -> FillProton(Ep, Epdep, pos.getX()/mm, pos.getY()/mm, pos.getZ()/mm);
+  //analysis -> FillProton(Ep, Epdep, pos.getX()/mm, pos.getY()/mm, pos.getZ()/mm);
+  analysis -> FillProton(Ep, pos.getX()/mm);
 
 }

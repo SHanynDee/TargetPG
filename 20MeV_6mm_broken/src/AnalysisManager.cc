@@ -64,13 +64,19 @@ void AnalysisManager::CreateNtuples()
   manager -> CreateNtupleDColumn("PositionZ");
   manager -> FinishNtuple();
 
-  manager -> CreateNtuple("ProtonInfo", "ProtonInfo");
+/*  manager -> CreateNtuple("ProtonInfo", "ProtonInfo");
   manager -> CreateNtupleDColumn("EkinProton");
   manager -> CreateNtupleDColumn("Edep");
   manager -> CreateNtupleDColumn("PositionX");
   manager -> CreateNtupleDColumn("PositionY");
   manager -> CreateNtupleDColumn("PositionZ");
   manager -> FinishNtuple();
+*/
+  manager->CreateH1("Ep","Ep no gate", 1000, 0. ,20.);
+  manager->CreateH1("Ep_gammagate","Ep with gamma gate", 1000, 0. ,20.);
+  manager->CreateH2("EpvsPosZ","Ep vs PositionZ", 1000, 0. , 6., 1000, 0. ,20.);
+  manager->CreateH2("EpvsPosZ_gammagate","Ep vs PositionZ with gamma gate", 1000, 0. , 6., 1000, 0. ,20.);
+  manager->CreateH2("EpvsEgamma_gammagate","Ep vs Egamma with gamma gate", 1000, 0. ,20., 1000, 0. ,20.);
 
   //manager->SetFirstNtupleId(1);
 
@@ -102,9 +108,13 @@ void AnalysisManager::FillVertex(G4double Ekin, G4int FinalA, G4int FinalZ, G4do
   manager -> FillNtupleDColumn(0, 6, PositionX);
   manager -> FillNtupleDColumn(0, 7, PositionY);
   manager -> FillNtupleDColumn(0, 8, PositionZ);
+  manager -> FillH1(1, EkinProton);
+  manager -> FillH2(1, PositionX, EkinProton);
+  manager -> FillH2(2, Ekin, EkinProton);
   manager -> AddNtupleRow(0);
 }
 
+/*
 void AnalysisManager::FillProton(G4double EkinProton, G4double Edep, G4double PositionX, G4double PositionY, G4double PositionZ)
 {
   G4AnalysisManager* manager = G4AnalysisManager::Instance();
@@ -114,6 +124,14 @@ void AnalysisManager::FillProton(G4double EkinProton, G4double Edep, G4double Po
   manager -> FillNtupleDColumn(1, 3, PositionY);
   manager -> FillNtupleDColumn(1, 4, PositionZ);
   manager -> AddNtupleRow(1);
+}
+*/
+
+void AnalysisManager::FillProton(G4double Ekin, G4double PositionX)
+{
+  G4AnalysisManager* manager = G4AnalysisManager::Instance();
+  manager -> FillH1(0, Ekin);
+  manager -> FillH2(0, PositionX, Ekin);
 }
 
 void AnalysisManager::finish()
