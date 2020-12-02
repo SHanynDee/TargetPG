@@ -72,13 +72,13 @@ void AnalysisManager::CreateNtuples()
   manager -> CreateNtupleDColumn("PositionZ");
   manager -> FinishNtuple();
 */
-  manager->CreateH1("Eproton","Eproton no gate", 1000, 0. ,20.);
-  manager->CreateH1("Eproton_gammagate","Eproton with gamma gate", 1000, 0. ,20.);
-  manager->CreateH2("EprotonvsPosX","Eproton vs PositionX", 1000, 0. , 6., 1000, 0. ,20.);
-  manager->CreateH2("EprotonvsPosX_gammagate","Eproton vs PositionX with gamma gate", 1000, 0. , 6., 1000, 0. ,20.);
-  manager->CreateH2("EprotonvsEgamma_gammagate","Eproton vs Egamma with gamma gate", 1000, 0. ,20., 1000, 0. ,20.);
+  manager->CreateH1("Eproton","Eproton no gate", 1000, 0. ,30.);
+  manager->CreateH1("Eproton_gammagate","Eproton with gamma gate", 1000, 0. ,30.);
+  manager->CreateH2("EprotonvsPosX","Eproton vs PositionX", 1000, 0. , 4., 1000, 0. ,30.);
+  manager->CreateH2("EprotonvsPosX_gammagate","Eproton vs PositionX with gamma gate", 1000, 0. , 4., 1000, 0. ,30.);
+  manager->CreateH2("EprotonvsEgamma_gammagate","Eproton vs Egamma with gamma gate", 1000, 0. ,30., 1000, 0. ,30.);
   
-  manager->CreateH2("EprotonvsPosX","Eproton vs PositionX", 1000, 0. , 6., 1000, 0. ,20.);
+  manager->CreateH2("EprotonvsPosX","Eproton vs PositionX", 1000, 0. , 4., 1000, 0. ,30.);
 
   //manager->SetFirstNtupleId(1);
 

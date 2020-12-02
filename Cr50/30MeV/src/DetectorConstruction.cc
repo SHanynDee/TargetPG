@@ -60,7 +60,7 @@ DetectorConstruction::DetectorConstruction(AnalysisManager* analysis_manager):
 logicTreatmentRoom(0), physicalTreatmentRoom(0), lTarget(0), pTarget(0)
 {
   analysis = analysis_manager;
-  TargetSize.setX(2*mm);
+  TargetSize.setX(3.2*mm);
   TargetSize.setY(1*mm);
   TargetSize.setZ(1*mm);
   
@@ -210,16 +210,7 @@ return physicalTreatmentRoom;
 
 void DetectorConstruction::SetTargetMaterial(G4String materialChoice)
 {
-	if (G4Material* pttoMaterial = G4NistManager::Instance()->FindOrBuildMaterial(materialChoice, false) )
-	{
-		if (pttoMaterial)
-		{
-			TargetMat  = pttoMaterial;
-			lTarget -> SetMaterial(pttoMaterial);
-			G4cout << "The material has been changed to " << materialChoice << G4endl;
-		}
-	}
-	else if(materialChoice == "Cr50")
+	if(materialChoice == "Cr50")
         {
                 TargetMat  = Cr50;
                 lTarget -> SetMaterial(TargetMat);
@@ -237,47 +228,26 @@ void DetectorConstruction::SetTargetMaterial(G4String materialChoice)
 
 void DetectorConstruction::SetTargetSize(G4ThreeVector size)
 {
-  TargetSize = size;
-  G4cout << "TARGET SIZE CHANGED:" << TargetSize.getX()/mm <<" "<<TargetSize.getY()/mm <<" " <<TargetSize.getZ()/mm <<G4endl;
-  G4RunManager::GetRunManager()->ReinitializeGeometry();
+       TargetSize = size;
+       G4cout << "TARGET SIZE CHANGED:" << TargetSize.getX()/mm <<" "<<TargetSize.getY()/mm <<" " <<TargetSize.getZ()/mm <<G4endl;
+       G4RunManager::GetRunManager()->ReinitializeGeometry();
 }
 
 G4Material* DetectorConstruction::MaterialWithSingleIsotope( G4String name, G4String symbol, G4double density, G4int Z, G4int A)
 {
  // define a material from an isotope
  //
- G4int ncomponents;
- G4double abundance, massfraction;
+       G4int ncomponents;
+       G4double abundance, massfraction;
 
- G4Isotope* isotope = new G4Isotope(symbol, Z, A);
+       G4Isotope* isotope = new G4Isotope(symbol, Z, A);
 
- G4Element* element  = new G4Element(name, symbol, ncomponents=1);
- element->AddIsotope(isotope, abundance= 100.*perCent);
+       G4Element* element  = new G4Element(name, symbol, ncomponents=1);
+       element->AddIsotope(isotope, abundance= 100.*perCent);
  
- G4Material* material = new G4Material(name, density, ncomponents=1);
- material->AddElement(element, massfraction=100.*perCent);
+       G4Material* material = new G4Material(name, density, ncomponents=1);
+       material->AddElement(element, massfraction=100.*perCent);
 
- return material;
+  return material;
 }
 
-
-/*void DetectorConstruction::SetIsotopeFraction(G4double fraction)
-{
-    if (fraction < 0)
-    	fFraction = 100;
-    else
-	{
-        G4Material* 
-       	TumorMaterial  = pttoMaterial;
-        logicTumor -> SetMaterial(pttoMaterial);
-        G4cout << "The material of the Tumor has been changed to " << materialChoice << G4endl;
-    	}
-  else
-    {
-      G4cout << "WARNING: material \"" << materialChoice << "\" doesn't exist in NIST elements/materials"
-            " table [located in $G4INSTALL/source/materials/src/G4NistMaterialBuilder.cc]" << G4endl;
-      G4cout << "Use command \"/parameter/nist\" to see full materials list!" << G4endl;
-    }
-
-}
-*/

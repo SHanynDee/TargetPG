@@ -63,8 +63,8 @@ StackingAction::ClassifyNewTrack(const G4Track* track)
         
 
     if (track->GetDynamicParticle() ->GetPDGcode() == 22) {
-		G4cout <<track->GetDynamicParticle() ->GetPDGcode() <<"\t" << track->GetParticleDefinition()->GetAtomicNumber() <<"\t" << track->GetParticleDefinition()->GetAtomicMass()<<"\t" <<track -> GetKineticEnergy()/MeV <<"\t" <<track -> GetCreatorProcess() -> GetProcessName()<<"\t"<< track ->GetParentID() << G4endl;
-		G4cout << "Ciao" << G4endl;
+		//G4cout <<track->GetDynamicParticle() ->GetPDGcode() <<"\t" << track->GetParticleDefinition()->GetAtomicNumber() <<"\t" << track->GetParticleDefinition()->GetAtomicMass()<<"\t" <<track -> GetKineticEnergy()/MeV <<"\t" <<track -> GetCreatorProcess() -> GetProcessName()<<"\t"<< track ->GetParentID() << G4endl;
+		//G4cout << "Ciao" << G4endl;
     	G4double vertex_energy = track -> GetKineticEnergy();
     	G4ThreeVector vertex_pos = track ->GetPosition();
     	G4ThreeVector vertex_direction = track -> GetMomentumDirection();
