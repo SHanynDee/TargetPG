@@ -1,7 +1,0 @@
-/home/shan/CHPC Results/Cr50/2.5MeV_thin_MYPC/build_0.00003mm_thin/CMakeFiles/install/strip.dir
-/home/shan/CHPC Results/Cr50/2.5MeV_thin_MYPC/build_0.00003mm_thin/CMakeFiles/edit_cache.dir
-/home/shan/CHPC Results/Cr50/2.5MeV_thin_MYPC/build_0.00003mm_thin/CMakeFiles/radioprotection.dir
-/home/shan/CHPC Results/Cr50/2.5MeV_thin_MYPC/build_0.00003mm_thin/CMakeFiles/rebuild_cache.dir
-/home/shan/CHPC Results/Cr50/2.5MeV_thin_MYPC/build_0.00003mm_thin/CMakeFiles/list_install_components.dir
-/home/shan/CHPC Results/Cr50/2.5MeV_thin_MYPC/build_0.00003mm_thin/CMakeFiles/install/local.dir
-/home/shan/CHPC Results/Cr50/2.5MeV_thin_MYPC/build_0.00003mm_thin/CMakeFiles/install.dir

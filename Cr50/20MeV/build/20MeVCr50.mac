@@ -5,7 +5,7 @@
 /run/numberOfThreads 32
 /run/initialize
 #/changeTarget/Material G4_PLEXIGLASS
-#/changeTarget/Size 3.2 1 1 mm
+#/changeTarget/Size 4 1 1 mm
 
 /gps/particle proton
 /gps/position -0.5 0 0 cm

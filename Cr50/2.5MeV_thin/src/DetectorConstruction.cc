@@ -60,11 +60,16 @@ DetectorConstruction::DetectorConstruction(AnalysisManager* analysis_manager):
 logicTreatmentRoom(0), physicalTreatmentRoom(0), lTarget(0), pTarget(0)
 {
   analysis = analysis_manager;
-  TargetSize.setX(1*mm);
-  TargetSize.setY(0.00003*mm);
+  TargetSize.setX(0.00003*mm);
+  TargetSize.setY(1*mm);
   TargetSize.setZ(1*mm);
+  
+  Cr50 = MaterialWithSingleIsotope("Chromium50","Cr50", 7.14*g/cm3, 24, 50);
+
+  TargetMat = Cr50;
 
 }
+
 
 DetectorConstruction::~DetectorConstruction(){
 
@@ -77,7 +82,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
 
   
     // Treatment room sizes
-    const G4double worldX = 1.0 *cm;
+    const G4double worldX = 2.0 *cm;
     const G4double worldY = 2.0 *cm;
     const G4double worldZ = 2.0 *cm;
     G4bool isotopes = false;
@@ -110,78 +115,67 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     logicTreatmentRoom -> SetVisAttributes (G4VisAttributes::GetInvisible());
     
 
-    G4String symbol;                             
-  G4double a;
-  G4int z;
+  //G4String symbol;                             
+  //G4double a;
+  //G4int z;
     //ElF19
-    a = 19.00*g/mole;
-    G4Element* elF19 = new G4Element ("Fluorine19", "F19", z=9.,a );
+    //a = 19.00*g/mole;
+    //G4Element* elF19 = new G4Element ("Fluorine19", "F19", z=9.,a );
     
-    //El31P
-    a=30.97*g/mole;
-    z=15.;
-    G4Element* elP31 = new G4Element ("Phosphorus31", "P31", z, a );
+     //El31P
+     //a=30.97*g/mole;
+     //z=15.;
+     //G4Element* elP31 = new G4Element ("Phosphorus31", "P31", z, a );
 
-    //ElCu63
-     a=62.9295975*g/mole;
-     z=29;
-     G4Element* elCu63 = new G4Element ("Copper63", "Cu63", z, a );
+     //ElCu63
+     //a=62.9295975*g/mole;
+     //z=29;
+     //G4Element* elCu63 = new G4Element ("Copper63", "Cu63", z, a );
 
      //ElSc45
-     a=44.955912*g/mole;
-     z=21;
-     G4Element* elSc45 = new G4Element ("Scandium45", "Sc45", z, a );
+     //a=44.955912*g/mole;
+     //z=21;
+     //G4Element* elSc45 = new G4Element ("Scandium45", "Sc45", z, a );
 
      //ElNi60
-     a=59.930786*g/mole;
-     z=28;
-     G4Element* elNi60 = new G4Element ("Nikel60", "Ni60", z, a );
+     //a=59.930786*g/mole;
+     //z=28;
+     //G4Element* elNi60 = new G4Element ("Nikel60", "Ni60", z, a );
 
      //ElY90
-     a=88.90585*g/mole;
-     z=39;
-     G4Element* elY90 = new G4Element ("Ittrio90", "Y90", z, a );
-
-     //ElCr50
-     a=49.946041*g/mole;
-     z=24;
-     G4Element* elCr50 = new G4Element ("Chromium50", "Cr50", z, a );
+     //a=88.90585*g/mole;
+     //z=39;
+     //G4Element* elY90 = new G4Element ("Ittrio90", "Y90", z, a );
      
      //63Cu
-     G4Material*  Cu63 = new G4Material("Cu63", 8.96*g/cm3, 1);
-     Cu63 -> AddElement(elCu63, 1);
+     //G4Material*  Cu63 = new G4Material("Cu63", 8.96*g/cm3, 1);
+     //Cu63 -> AddElement(elCu63, 1);
     
     //19F
-    G4Material* F19 = new G4Material("F19", 1.696*g/cm3, 1);
-    F19 -> AddElement(elF19, 1);
+    //G4Material* F19 = new G4Material("F19", 1.696*g/cm3, 1);
+    //F19 -> AddElement(elF19, 1);
     
     //31P
-    G4Material*  P31 = new G4Material("P31", 1.823*g/cm3, 1);
-    P31 -> AddElement(elP31, 1);
+    //G4Material*  P31 = new G4Material("P31", 1.823*g/cm3, 1);
+    //P31 -> AddElement(elP31, 1);
 
     //45Sc
-    G4Material*  Sc45 = new G4Material("Sc45", 2.985*g/cm3, 1);
-    Sc45 -> AddElement(elSc45, 1);
+    //G4Material*  Sc45 = new G4Material("Sc45", 2.985*g/cm3, 1);
+    //Sc45 -> AddElement(elSc45, 1);
 
     //60Ni
-    G4Material*  Ni60 = new G4Material("Ni60", 8.908*g/cm3, 1);
-    Ni60 -> AddElement(elNi60, 1);
+    //G4Material*  Ni60 = new G4Material("Ni60", 8.908*g/cm3, 1);
+    //Ni60 -> AddElement(elNi60, 1);
 
     //90Y
-    G4Material*  Y90 = new G4Material("Y90", 4.472*g/cm3, 1);
-    Y90 -> AddElement(elY90, 1);
-
-    //50Cr                                                                                                                                   
-    G4Material*  Cr50 = new G4Material("Cr50", 7.14*g/cm3, 1);
-    Cr50 -> AddElement(elCr50, 1);
-
+    //G4Material*  Y90 = new G4Material("Y90", 4.472*g/cm3, 1);
+    //Y90 -> AddElement(elY90, 1);
     
-    G4Material* TargetMat = G4NistManager::Instance()->FindOrBuildMaterial("G4_BRAIN_ICRP", isotopes);
-    G4Material* PMMA_MAT = G4NistManager::Instance()->FindOrBuildMaterial("G4_PLEXIGLASS", isotopes);
-    G4Material* Chromium = G4NistManager::Instance()->FindOrBuildMaterial("G4_Cr", isotopes);
-    //TargetMat = P31;
+                                   
+   // G4Material* TargetMat = G4NistManager::Instance()->FindOrBuildMaterial("G4_BRAIN_ICRP", isotopes);
+   // G4Material* PMMA_MAT = G4NistManager::Instance()->FindOrBuildMaterial("G4_PLEXIGLASS", isotopes);
 
-   TargetMat = Cr50;
+    //TargetMat = P31;
     
     sTarget = new G4Box("sTarget",
                                      TargetSize.getX()/2.,
@@ -190,7 +184,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     
     lTarget = new G4LogicalVolume(sTarget,
                                              TargetMat,
-                                             "lTarget",
+                                             "Target",
                                              0,0,0);
     
     pTarget = new G4PVPlacement(0,
@@ -208,54 +202,52 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
 return physicalTreatmentRoom; 
 
 }
+
+
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////// MESSENGER ///////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 
 void DetectorConstruction::SetTargetMaterial(G4String materialChoice)
 {
-if (G4Material* pttoMaterial = G4NistManager::Instance()->FindOrBuildMaterial(materialChoice, false) )
-    {
-      if (pttoMaterial)
+	if(materialChoice == "Cr50")
         {
-	  //AbsMaterial  = pttoMaterial;
-	  lTarget -> SetMaterial(pttoMaterial);
-	  G4cout << "The material of the Absorber has been changed to " << materialChoice << G4endl;
+                TargetMat  = Cr50;
+                lTarget -> SetMaterial(TargetMat);
+                G4cout << "The material has been changed to " << materialChoice << G4endl;
         }
-    }
-  else
-    {
-      G4cout << "WARNING: material \"" << materialChoice << "\" doesn't exist in NIST elements/materials"
-	    " table [located in $G4INSTALL/source/materials/src/G4NistMaterialBuilder.cc]" << G4endl;
-      G4cout << "Use command \"/parameter/nist\" to see full materials list!" << G4endl;
-    }
+
+	else
+	{
+		G4cout << "WARNING: material \"" << materialChoice << "\" doesn't exist in NIST elements/materials"
+			" table [located in $G4INSTALL/source/materials/src/G4NistMaterialBuilder.cc]" << G4endl;
+		G4cout << "Use command \"/parameter/nist\" to see full materials list!" << G4endl;
+	}
 
 }
 
 void DetectorConstruction::SetTargetSize(G4ThreeVector size)
 {
-  TargetSize = size;
-  G4cout << "TARGET SIZE CHANGED:" << TargetSize.getX()/mm <<" "<<TargetSize.getY()/mm <<" " <<TargetSize.getZ()/mm <<G4endl;
-  G4RunManager::GetRunManager()->ReinitializeGeometry();
+       TargetSize = size;
+       G4cout << "TARGET SIZE CHANGED:" << TargetSize.getX()/mm <<" "<<TargetSize.getY()/mm <<" " <<TargetSize.getZ()/mm <<G4endl;
+       G4RunManager::GetRunManager()->ReinitializeGeometry();
 }
 
-/*void DetectorConstruction::SetIsotopeFraction(G4double fraction)
+G4Material* DetectorConstruction::MaterialWithSingleIsotope( G4String name, G4String symbol, G4double density, G4int Z, G4int A)
 {
-    if (fraction < 0)
-    	fFraction = 100;
-    else
-	{
-        G4Material* 
-       	TumorMaterial  = pttoMaterial;
-        logicTumor -> SetMaterial(pttoMaterial);
-        G4cout << "The material of the Tumor has been changed to " << materialChoice << G4endl;
-    	}
-  else
-    {
-      G4cout << "WARNING: material \"" << materialChoice << "\" doesn't exist in NIST elements/materials"
-            " table [located in $G4INSTALL/source/materials/src/G4NistMaterialBuilder.cc]" << G4endl;
-      G4cout << "Use command \"/parameter/nist\" to see full materials list!" << G4endl;
-    }
+ // define a material from an isotope
+ //
+       G4int ncomponents;
+       G4double abundance, massfraction;
 
+       G4Isotope* isotope = new G4Isotope(symbol, Z, A);
+
+       G4Element* element  = new G4Element(name, symbol, ncomponents=1);
+       element->AddIsotope(isotope, abundance= 100.*perCent);
+ 
+       G4Material* material = new G4Material(name, density, ncomponents=1);
+       material->AddElement(element, massfraction=100.*perCent);
+
+  return material;
 }
-*/
+

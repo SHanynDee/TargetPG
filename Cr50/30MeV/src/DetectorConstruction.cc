@@ -60,7 +60,7 @@ DetectorConstruction::DetectorConstruction(AnalysisManager* analysis_manager):
 logicTreatmentRoom(0), physicalTreatmentRoom(0), lTarget(0), pTarget(0)
 {
   analysis = analysis_manager;
-  TargetSize.setX(3.2*mm);
+  TargetSize.setX(4*mm);
   TargetSize.setY(1*mm);
   TargetSize.setZ(1*mm);
   

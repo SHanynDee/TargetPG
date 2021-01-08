@@ -119,8 +119,17 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
     }
 
 
+      G4LogicalVolume* volume= step->GetPreStepPoint()->GetTouchableHandle()->GetVolume()->GetLogicalVolume();
+
+//note that postPoint->GetStepStatus() == fGeomBoundary means that the particle is leaving the current volume
+
     for(int i = 0; i<gammaEkin.size(); i++) //root file only filled when you have a gamma energy
-    analysis -> FillVertex(gammaEkin[i], FinalA, FinalZ, protonStep, protonE, Edep, position.getX()/mm, position.getY()/mm, position.getZ()/mm);
+      {
+       if(volume->GetName() == "Target")
+      analysis -> FillVertex(gammaEkin[i], FinalA, FinalZ, protonStep, protonE, Edep, position.getX()/mm, position.getY()/mm, position.getZ()/mm);
+
+      }
+
 
     //G4cout << G4endl; //<< countGamma<<G4endl;
     //G4cout <<nuclearChannel << G4endl;
@@ -128,6 +137,5 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
 
   //analysis -> FillProton(Ep, Epdep, pos.getX()/mm, pos.getY()/mm, pos.getZ()/mm);
   analysis -> FillProton(Ep, pos.getX()/mm);
-  G4cout << pos.getX();
 
 }
