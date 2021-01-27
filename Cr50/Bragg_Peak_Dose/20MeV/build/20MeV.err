@@ -1,0 +1,16 @@
+Currently Loaded Modulefiles:
+  1) chpc/BIOMODULES
+  2) /apps/chpc/scripts/modules/bio/lib/isl/0.16.1
+  3) cmake/3.16.3
+  4) gcc/9.2.0
+  5) chpc/phys/geant4/10.5.1
+  6) chpc/phys/root/6-20-04
+/mnt/lustre/users/shart/Geant4.10.05/TargetPG/Cr50/20MeV/src/DetectorConstruction.cc: In member function ‘virtual G4VPhysicalVolume* DetectorConstruction::Construct()’:
+/mnt/lustre/users/shart/Geant4.10.05/TargetPG/Cr50/20MeV/src/DetectorConstruction.cc:119:20: error: cannot convert ‘G4VPhysicalVolume*’ to ‘G4LogicalVolume*’ in assignment
+  119 |   fScoringVolume = physicalTreatmentRoom;
+      |                    ^~~~~~~~~~~~~~~~~~~~~
+      |                    |
+      |                    G4VPhysicalVolume*
+make[2]: *** [CMakeFiles/radioprotection.dir/src/DetectorConstruction.cc.o] Error 1
+make[1]: *** [CMakeFiles/radioprotection.dir/all] Error 2
+make: *** [all] Error 2
