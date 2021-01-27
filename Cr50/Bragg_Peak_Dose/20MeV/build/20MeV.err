@@ -5,12 +5,16 @@ Currently Loaded Modulefiles:
   4) gcc/9.2.0
   5) chpc/phys/geant4/10.5.1
   6) chpc/phys/root/6-20-04
-/mnt/lustre/users/shart/Geant4.10.05/TargetPG/Cr50/20MeV/src/DetectorConstruction.cc: In member function ‘virtual G4VPhysicalVolume* DetectorConstruction::Construct()’:
-/mnt/lustre/users/shart/Geant4.10.05/TargetPG/Cr50/20MeV/src/DetectorConstruction.cc:119:20: error: cannot convert ‘G4VPhysicalVolume*’ to ‘G4LogicalVolume*’ in assignment
-  119 |   fScoringVolume = physicalTreatmentRoom;
-      |                    ^~~~~~~~~~~~~~~~~~~~~
-      |                    |
-      |                    G4VPhysicalVolume*
-make[2]: *** [CMakeFiles/radioprotection.dir/src/DetectorConstruction.cc.o] Error 1
+/mnt/lustre/users/shart/Geant4.10.05/TargetPG/Cr50/20MeV/src/SteppingAction.cc: In member function ‘virtual void SteppingAction::UserSteppingAction(const G4Step*)’:
+/mnt/lustre/users/shart/Geant4.10.05/TargetPG/Cr50/20MeV/src/SteppingAction.cc:145:21: warning: comparison of integer expressions of different signedness: ‘int’ and ‘std::vector<double>::size_type’ {aka ‘long unsigned int’} [-Wsign-compare]
+  145 |     for(int i = 0; i<gammaEkin.size(); i++) //root file only filled when you have a gamma energy
+      |                    ~^~~~~~~~~~~~~~~~~
+/mnt/lustre/users/shart/Geant4.10.05/TargetPG/Cr50/20MeV/src/SteppingAction.cc:148:151: error: ‘dose’ was not declared in this scope
+  148 |       analysis -> FillVertex(gammaEkin[i], FinalA, FinalZ, protonStep, protonE, edepStep, position.getX()/mm, position.getY()/mm, position.getZ()/mm, dose, rmsDose);
+      |                                                                                                                                                       ^~~~
+/mnt/lustre/users/shart/Geant4.10.05/TargetPG/Cr50/20MeV/src/SteppingAction.cc:148:157: error: ‘rmsDose’ was not declared in this scope
+  148 |       analysis -> FillVertex(gammaEkin[i], FinalA, FinalZ, protonStep, protonE, edepStep, position.getX()/mm, position.getY()/mm, position.getZ()/mm, dose, rmsDose);
+      |                                                                                                                                                             ^~~~~~~
+make[2]: *** [CMakeFiles/radioprotection.dir/src/SteppingAction.cc.o] Error 1
 make[1]: *** [CMakeFiles/radioprotection.dir/all] Error 2
 make: *** [all] Error 2
